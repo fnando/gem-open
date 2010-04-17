@@ -24,7 +24,10 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.6}
-  s.summary = %q{Open a gem into your favorite editor}
+  s.summary = %q{Open gems into your favorite editor by running a specific gem command.}
+  s.test_files = [
+    "test/gem_open_test.rb"
+  ]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
