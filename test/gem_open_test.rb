@@ -7,7 +7,7 @@ require "FileUtils"
 
 class GemOpenTest < Test::Unit::TestCase
   def setup
-    ENV["GEM_EDIT"] = "mate"
+    ENV["GEM_EDITOR"] = "mate"
     @plugin = Gem::Commands::OpenCommand.new
     @gemdir = File.expand_path(File.dirname(__FILE__) + "/gems")
   end
