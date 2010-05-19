@@ -53,6 +53,28 @@ class GemOpenTest < Test::Unit::TestCase
     @plugin.execute
   end
 
+  def test_gem_with_compound_name
+    gemname = "sinatra-sugar"
+
+    Gem::SourceIndex.expects(:installed_spec_directories).returns([File.dirname(__FILE__) + "/resources"])
+
+    @plugin.expects(:options).returns(:args => [gemname])
+    @plugin.expects(:system).with("mate #{@gemdir}/sinatra-sugar-0.4.1")
+
+    @plugin.execute
+  end
+
+  def test_gem_with_compound_name_and_version
+    gemname = "sinatra-sugar-0.4.1"
+
+    Gem::SourceIndex.expects(:installed_spec_directories).returns([File.dirname(__FILE__) + "/resources"])
+
+    @plugin.expects(:options).returns(:args => [gemname])
+    @plugin.expects(:system).with("mate #{@gemdir}/sinatra-sugar-0.4.1")
+
+    @plugin.execute
+  end
+
   def test_unset_editor
     ENV["GEM_EDITOR"] = nil
     gemname = "activesupport"

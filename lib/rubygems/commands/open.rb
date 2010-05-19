@@ -34,16 +34,16 @@ class Gem::Commands::OpenCommand < Gem::Command
   end
 
   def search(gemname)
-    regex = /^(.*?)(?:-(.*?))?$/
+    regex = /^(.*?)-*([\d.]+[\w\d]*)?$/
     _, required_name, required_version = *gemname.match(regex)
 
     gemspecs = Dir["{#{Gem::SourceIndex.installed_spec_directories.join(",")}}/*.gemspec"].select do |gemspec|
       basename = File.basename(gemspec).gsub(/\.gemspec$/, "")
-      _, name, version = *basename.match(regex)
 
       if required_version
         basename == gemname
       else
+        _, name, version = *basename.match(regex)
         name == gemname
       end
     end
