@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{gem-open}
-  s.version = "0.1.1"
+  s.version = "0.1.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Nando Vieira"]
-  s.date = %q{2010-05-23}
+  s.date = %q{2010-08-10}
   s.email = %q{fnando.vieira@gmail.com}
   s.extra_rdoc_files = [
     "README.rdoc"
@@ -23,8 +23,8 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/fnando/open-gem}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.3.6}
-  s.summary = %q{Open gems into your favorite editor by running a specific gem command.}
+  s.rubygems_version = %q{1.3.5}
+  s.summary = %q{Open gems on your favorite editor by running a specific gem command like `gem open nokogiri`.}
   s.test_files = [
     "test/gem_open_test.rb"
   ]
