@@ -3,7 +3,7 @@ gem "test-unit"
 require "test/unit"
 require "mocha"
 require "rubygems_plugin"
-require "FileUtils"
+require "FileUtils" unless defined?(FileUtils)
 
 class GemOpenTest < Test::Unit::TestCase
   def setup
@@ -27,6 +27,34 @@ class GemOpenTest < Test::Unit::TestCase
     @plugin.expects(:search).with(gemname).returns(nil)
     @plugin.expects(:say).with("The #{gemname.inspect} gem couldn't be found")
     @plugin.expects(:terminate_interaction).returns(true)
+
+    @plugin.execute
+  end
+
+  def test_open_gem_using_gem_editor_variable
+    ENV["GEM_EDITOR"] = "mate"
+    ENV["EDITOR"] = "vim"
+
+    gemname = "activesupport"
+
+    Gem::SourceIndex.expects(:installed_spec_directories).returns([File.dirname(__FILE__) + "/resources"])
+
+    @plugin.expects(:options).returns(:args => [gemname])
+    @plugin.expects(:system).with("mate #{@gemdir}/activesupport-3.0.0.beta3")
+
+    @plugin.execute
+  end
+
+  def test_open_gem_using_editor_variable
+    ENV["GEM_EDITOR"] = nil
+    ENV["EDITOR"] = "vim"
+
+    gemname = "activesupport"
+
+    Gem::SourceIndex.expects(:installed_spec_directories).returns([File.dirname(__FILE__) + "/resources"])
+
+    @plugin.expects(:options).returns(:args => [gemname])
+    @plugin.expects(:system).with("vim #{@gemdir}/activesupport-3.0.0.beta3")
 
     @plugin.execute
   end
@@ -77,6 +105,7 @@ class GemOpenTest < Test::Unit::TestCase
 
   def test_unset_editor
     ENV["GEM_EDITOR"] = nil
+    ENV["EDITOR"] = nil
     gemname = "activesupport"
 
     Gem::SourceIndex.expects(:installed_spec_directories).returns([File.dirname(__FILE__) + "/resources"])
@@ -84,6 +113,8 @@ class GemOpenTest < Test::Unit::TestCase
     @plugin.expects(:options).returns(:args => [gemname])
     @plugin.expects(:say).with("You must set your editor in your .bash_profile or equivalent:")
     @plugin.expects(:say).with("  export GEM_EDITOR='mate'")
+    @plugin.expects(:say).with("or")
+    @plugin.expects(:say).with("  export EDITOR='mate'")
     @plugin.expects(:terminate_interaction)
 
     @plugin.execute

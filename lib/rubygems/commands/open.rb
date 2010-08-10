@@ -56,11 +56,15 @@ class Gem::Commands::OpenCommand < Gem::Command
   end
 
   def open(spec)
-    if ENV["GEM_EDITOR"]
-      system "#{ENV["GEM_EDITOR"]} #{spec.full_gem_path}"
+    editor = ENV["GEM_EDITOR"] || ENV["EDITOR"]
+
+    if editor
+      system "#{editor} #{spec.full_gem_path}"
     else
       say "You must set your editor in your .bash_profile or equivalent:"
       say "  export GEM_EDITOR='mate'"
+      say "or"
+      say "  export EDITOR='mate'"
       return terminate_interaction
     end
   end
