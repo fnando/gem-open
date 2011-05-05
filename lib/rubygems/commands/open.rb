@@ -33,11 +33,19 @@ class Gem::Commands::OpenCommand < Gem::Command
     end
   end
 
+  def dirs
+    if Gem::Specification.respond_to?(:dirs)
+      Gem::Specification.dirs
+    else
+      Gem::SourceIndex.installed_spec_directories
+    end
+  end
+
   def search(gemname)
     regex = /^(.*?)-*([\d.]+[\w]*)?$/
     _, required_name, required_version = *gemname.match(regex)
 
-    gemspecs = Dir["{#{Gem::SourceIndex.installed_spec_directories.join(",")}}/*.gemspec"].select do |gemspec|
+    gemspecs = Dir["{#{dirs.join(",")}}/*.gemspec"].select do |gemspec|
       basename = File.basename(gemspec).gsub(/\.gemspec$/, "")
 
       if required_version

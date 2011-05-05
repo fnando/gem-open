@@ -12,6 +12,20 @@ class GemOpenTest < Test::Unit::TestCase
     @gemdir = File.expand_path(File.dirname(__FILE__) + "/gems")
   end
 
+  def test_use_gem_specification_dirs
+    Gem::Specification.expects(:respond_to?).with(:dirs).returns(true)
+    Gem::Specification.expects(:dirs).returns(["/some/dir"])
+
+    assert_equal ["/some/dir"], @plugin.dirs
+  end
+
+  def test_use_gem_source_index_dirs
+    Gem::Specification.expects(:respond_to?).with(:dirs).returns(false)
+    Gem::SourceIndex.expects(:installed_spec_directories).returns(["/some/dir"])
+
+    assert_equal ["/some/dir"], @plugin.dirs
+  end
+
   def test_require_gem_name_to_be_set
     @plugin.expects(:options).returns(:args => [])
     @plugin.expects(:say).with("Usage: #{@plugin.usage}")
@@ -37,7 +51,7 @@ class GemOpenTest < Test::Unit::TestCase
 
     gemname = "activesupport"
 
-    Gem::SourceIndex.expects(:installed_spec_directories).returns([File.dirname(__FILE__) + "/resources"])
+    @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
 
     @plugin.expects(:options).returns(:args => [gemname])
     @plugin.expects(:system).with("mate #{@gemdir}/activesupport-3.0.0.beta3")
@@ -51,7 +65,7 @@ class GemOpenTest < Test::Unit::TestCase
 
     gemname = "activesupport"
 
-    Gem::SourceIndex.expects(:installed_spec_directories).returns([File.dirname(__FILE__) + "/resources"])
+    @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
 
     @plugin.expects(:options).returns(:args => [gemname])
     @plugin.expects(:system).with("vim #{@gemdir}/activesupport-3.0.0.beta3")
@@ -62,7 +76,7 @@ class GemOpenTest < Test::Unit::TestCase
   def test_gem_without_version
     gemname = "activesupport"
 
-    Gem::SourceIndex.expects(:installed_spec_directories).returns([File.dirname(__FILE__) + "/resources"])
+    @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
 
     @plugin.expects(:options).returns(:args => [gemname])
     @plugin.expects(:system).with("mate #{@gemdir}/activesupport-3.0.0.beta3")
@@ -73,7 +87,7 @@ class GemOpenTest < Test::Unit::TestCase
   def test_gem_with_version
     gemname = "activesupport-2.3.5"
 
-    Gem::SourceIndex.expects(:installed_spec_directories).returns([File.dirname(__FILE__) + "/resources"])
+    @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
 
     @plugin.expects(:options).returns(:args => [gemname])
     @plugin.expects(:system).with("mate #{@gemdir}/activesupport-2.3.5")
@@ -84,7 +98,7 @@ class GemOpenTest < Test::Unit::TestCase
   def test_gem_with_compound_name
     gemname = "sinatra-sugar"
 
-    Gem::SourceIndex.expects(:installed_spec_directories).returns([File.dirname(__FILE__) + "/resources"])
+    @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
 
     @plugin.expects(:options).returns(:args => [gemname])
     @plugin.expects(:system).with("mate #{@gemdir}/sinatra-sugar-0.4.1")
@@ -95,7 +109,7 @@ class GemOpenTest < Test::Unit::TestCase
   def test_gem_with_compound_name_and_version
     gemname = "sinatra-sugar-0.4.1"
 
-    Gem::SourceIndex.expects(:installed_spec_directories).returns([File.dirname(__FILE__) + "/resources"])
+    @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
 
     @plugin.expects(:options).returns(:args => [gemname])
     @plugin.expects(:system).with("mate #{@gemdir}/sinatra-sugar-0.4.1")
@@ -108,7 +122,7 @@ class GemOpenTest < Test::Unit::TestCase
     ENV["EDITOR"] = nil
     gemname = "activesupport"
 
-    Gem::SourceIndex.expects(:installed_spec_directories).returns([File.dirname(__FILE__) + "/resources"])
+    @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
 
     @plugin.expects(:options).returns(:args => [gemname])
     @plugin.expects(:say).with("You must set your editor in your .bash_profile or equivalent:")
