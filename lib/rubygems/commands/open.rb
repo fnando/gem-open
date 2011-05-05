@@ -52,7 +52,7 @@ class Gem::Commands::OpenCommand < Gem::Command
 
     return unless gemspec
 
-    Gem::SourceIndex.load_specification(gemspec)
+    Gem::Specification.load(gemspec)
   end
 
   def open(spec)
