@@ -16,4 +16,6 @@ Gem::Specification.new do |s|
   s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_paths = ["lib"]
 
+  s.add_development_dependency "mocha", "~> 0.9.12"
+  s.add_development_dependency "test-unit", "~> 2.3.0"
 end
