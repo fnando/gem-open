@@ -117,6 +117,28 @@ class GemOpenTest < Test::Unit::TestCase
     @plugin.execute
   end
 
+  def test_gem_with_alphanumeric_name
+    gemname = "imgur2"
+
+    @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
+
+    @plugin.expects(:options).returns(:args => [gemname])
+    @plugin.expects(:system).with("mate #{@gemdir}/imgur2-1.2.0")
+
+    @plugin.execute
+  end
+
+  def test_gem_with_alphanumeric_name_and_version
+    gemname = "imgur2-1.2.0"
+
+    @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
+
+    @plugin.expects(:options).returns(:args => [gemname])
+    @plugin.expects(:system).with("mate #{@gemdir}/imgur2-1.2.0")
+
+    @plugin.execute
+  end
+
   def test_unset_editor
     ENV["GEM_EDITOR"] = nil
     ENV["EDITOR"] = nil
