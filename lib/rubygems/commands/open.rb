@@ -42,7 +42,7 @@ class Gem::Commands::OpenCommand < Gem::Command
   end
 
   def search(gemname)
-    regex = /^(.*?)-*([\d.]+[\w]*)?$/
+    regex = /^(.*?)(-+[\d.]+[\w]*)?$/
     _, required_name, required_version = *gemname.match(regex)
 
     gemspecs = Dir["{#{dirs.join(",")}}/*.gemspec"].select do |gemspec|
