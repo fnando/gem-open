@@ -35,7 +35,7 @@ Want some completion? Add this snippet to your <tt>~/.bash_profile</tt> file.
 
       case "$subcmd" in
           open)
-              words=`ruby -rubygems -e 'puts Dir["{#{Gem::SourceIndex.installed_spec_directories.join(",")}}/*.gemspec"].collect {|s| File.basename(s).gsub(/\.gemspec$/, "")}'`
+              words=`ruby -rubygems -e 'puts Dir["{#{Gem::Specification.dirs.join(",")}}/*.gemspec"].collect {|s| File.basename(s).gsub(/\.gemspec$/, "")}'`
               ;;
           *)
               return
