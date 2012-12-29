@@ -4,7 +4,7 @@ PATH
     gem-open (0.1.6)
 
 GEM
-  remote: http://gems.simplesideias.com.br/
+  remote: https://rubygems.org/
   specs:
     mocha (0.9.12)
     test-unit (2.3.0)
