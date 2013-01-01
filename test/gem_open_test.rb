@@ -1,4 +1,3 @@
-gem "test-unit"
 require "test/unit"
 require "mocha"
 require "rubygems_plugin"
@@ -14,13 +13,6 @@ class GemOpenTest < Test::Unit::TestCase
   def test_use_gem_specification_dirs
     Gem::Specification.expects(:respond_to?).with(:dirs).returns(true)
     Gem::Specification.expects(:dirs).returns(["/some/dir"])
-
-    assert_equal ["/some/dir"], @plugin.dirs
-  end
-
-  def test_use_gem_source_index_dirs
-    Gem::Specification.expects(:respond_to?).with(:dirs).returns(false)
-    Gem::SourceIndex.expects(:installed_spec_directories).returns(["/some/dir"])
 
     assert_equal ["/some/dir"], @plugin.dirs
   end
