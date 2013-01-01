@@ -1,4 +1,3 @@
-gem "test-unit"
 require "test/unit"
 require "mocha"
 require "rubygems_plugin"
