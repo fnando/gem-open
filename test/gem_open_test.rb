@@ -17,13 +17,6 @@ class GemOpenTest < Test::Unit::TestCase
     assert_equal ["/some/dir"], @plugin.dirs
   end
 
-  def test_use_gem_source_index_dirs
-    Gem::Specification.expects(:respond_to?).with(:dirs).returns(false)
-    Gem::SourceIndex.expects(:installed_spec_directories).returns(["/some/dir"])
-
-    assert_equal ["/some/dir"], @plugin.dirs
-  end
-
   def test_require_gem_name_to_be_set
     @plugin.expects(:options).returns(:args => [])
     @plugin.expects(:say).with("Usage: #{@plugin.usage}")
