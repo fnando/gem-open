@@ -17,5 +17,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   s.add_development_dependency "mocha", "~> 0.9.12"
-  s.add_development_dependency "test-unit", "~> 2.3.0"
+  s.add_development_dependency "test-unit"
+  s.add_development_dependency "minitest"
+  s.add_development_dependency "rake"
 end
