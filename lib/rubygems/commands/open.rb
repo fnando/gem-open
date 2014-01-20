@@ -67,7 +67,11 @@ class Gem::Commands::OpenCommand < Gem::Command
     editor = ENV["GEM_EDITOR"] || ENV["EDITOR"]
 
     if editor
-      system editor, spec.full_gem_path
+      if system(editor, spec.full_gem_path) == nil
+        say "Opening '#{spec.full_gem_path}' failed with: #{$?}"
+        say "Ensure that '#{editor}' is a valid executable on your PATH"
+        say "and does not contain any parameters"
+      end
     else
       say "You must set your editor in your .bash_profile or equivalent:"
       say "  export GEM_EDITOR='mate'"

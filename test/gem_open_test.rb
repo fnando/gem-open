@@ -48,7 +48,7 @@ class GemOpenTest < Test::Unit::TestCase
     @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
 
     @plugin.expects(:options).returns(:args => [gemname])
-    @plugin.expects(:system).with("mate", "#{@gemdir}/activesupport-3.0.0.beta3")
+    @plugin.expects(:system).with("mate", "#{@gemdir}/activesupport-3.0.0.beta3").returns(true)
 
     @plugin.execute
   end
@@ -62,18 +62,33 @@ class GemOpenTest < Test::Unit::TestCase
     @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
 
     @plugin.expects(:options).returns(:args => [gemname])
-    @plugin.expects(:system).with("vim", "#{@gemdir}/activesupport-3.0.0.beta3")
+    @plugin.expects(:system).with("vim", "#{@gemdir}/activesupport-3.0.0.beta3").returns(true)
 
     @plugin.execute
   end
 
+  def test_open_fails
+    ENV["GEM_EDITOR"] = "vim"
+    gemname = "activesupport"
+
+    @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
+    @plugin.expects(:options).returns(:args => [gemname])
+    @plugin.expects(:system).with("vim", "#{@gemdir}/activesupport-3.0.0.beta3").returns(nil)
+    err_msg = "pid 12345 exit 127"
+    Process::Status.any_instance.stubs(:to_s).returns(err_msg)
+    @plugin.expects(:say).with("Opening '#{@gemdir}/activesupport-3.0.0.beta3' failed with: #{err_msg}")
+    @plugin.expects(:say).with("Ensure that '#{ENV['GEM_EDITOR']}' is a valid executable on your PATH")
+    @plugin.expects(:say).with("and does not contain any parameters")
+    @plugin.execute
+  end
+  
   def test_gem_without_version
     gemname = "activesupport"
 
     @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
 
     @plugin.expects(:options).returns(:args => [gemname])
-    @plugin.expects(:system).with("mate", "#{@gemdir}/activesupport-3.0.0.beta3")
+    @plugin.expects(:system).with("mate", "#{@gemdir}/activesupport-3.0.0.beta3").returns(true)
 
     @plugin.execute
   end
@@ -84,7 +99,7 @@ class GemOpenTest < Test::Unit::TestCase
     @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
 
     @plugin.expects(:options).returns(:args => [gemname])
-    @plugin.expects(:system).with("mate", "#{@gemdir}/activesupport-2.3.5")
+    @plugin.expects(:system).with("mate", "#{@gemdir}/activesupport-2.3.5").returns(true)
 
     @plugin.execute
   end
@@ -95,7 +110,7 @@ class GemOpenTest < Test::Unit::TestCase
     @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
 
     @plugin.expects(:options).returns(:args => [gemname])
-    @plugin.expects(:system).with("mate", "#{@gemdir}/sinatra-sugar-0.4.1")
+    @plugin.expects(:system).with("mate", "#{@gemdir}/sinatra-sugar-0.4.1").returns(true)
 
     @plugin.execute
   end
@@ -106,7 +121,7 @@ class GemOpenTest < Test::Unit::TestCase
     @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
 
     @plugin.expects(:options).returns(:args => [gemname])
-    @plugin.expects(:system).with("mate", "#{@gemdir}/sinatra-sugar-0.4.1")
+    @plugin.expects(:system).with("mate", "#{@gemdir}/sinatra-sugar-0.4.1").returns(true)
 
     @plugin.execute
   end
@@ -117,7 +132,7 @@ class GemOpenTest < Test::Unit::TestCase
     @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
 
     @plugin.expects(:options).returns(:args => [gemname])
-    @plugin.expects(:system).with("mate", "#{@gemdir}/imgur2-1.2.0")
+    @plugin.expects(:system).with("mate", "#{@gemdir}/imgur2-1.2.0").returns(true)
 
     @plugin.execute
   end
@@ -128,7 +143,7 @@ class GemOpenTest < Test::Unit::TestCase
     @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
 
     @plugin.expects(:options).returns(:args => [gemname])
-    @plugin.expects(:system).with("mate", "#{@gemdir}/imgur2-1.2.0")
+    @plugin.expects(:system).with("mate", "#{@gemdir}/imgur2-1.2.0").returns(true)
 
     @plugin.execute
   end
