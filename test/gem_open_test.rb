@@ -48,6 +48,7 @@ class GemOpenTest < Test::Unit::TestCase
     @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
 
     @plugin.expects(:options).returns(:args => [gemname])
+    Dir.expects(:chdir).with("#{@gemdir}/activesupport-3.0.0.beta3").yields
     @plugin.expects(:system).with("mate", "#{@gemdir}/activesupport-3.0.0.beta3")
 
     @plugin.execute
@@ -62,6 +63,7 @@ class GemOpenTest < Test::Unit::TestCase
     @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
 
     @plugin.expects(:options).returns(:args => [gemname])
+    Dir.expects(:chdir).with("#{@gemdir}/activesupport-3.0.0.beta3").yields
     @plugin.expects(:system).with("vim", "#{@gemdir}/activesupport-3.0.0.beta3")
 
     @plugin.execute
@@ -73,6 +75,7 @@ class GemOpenTest < Test::Unit::TestCase
     @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
 
     @plugin.expects(:options).returns(:args => [gemname])
+    Dir.expects(:chdir).with("#{@gemdir}/activesupport-3.0.0.beta3").yields
     @plugin.expects(:system).with("mate", "#{@gemdir}/activesupport-3.0.0.beta3")
 
     @plugin.execute
@@ -84,6 +87,7 @@ class GemOpenTest < Test::Unit::TestCase
     @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
 
     @plugin.expects(:options).returns(:args => [gemname])
+    Dir.expects(:chdir).with("#{@gemdir}/activesupport-2.3.5").yields
     @plugin.expects(:system).with("mate", "#{@gemdir}/activesupport-2.3.5")
 
     @plugin.execute
@@ -95,6 +99,7 @@ class GemOpenTest < Test::Unit::TestCase
     @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
 
     @plugin.expects(:options).returns(:args => [gemname])
+    Dir.expects(:chdir).with("#{@gemdir}/sinatra-sugar-0.4.1").yields
     @plugin.expects(:system).with("mate", "#{@gemdir}/sinatra-sugar-0.4.1")
 
     @plugin.execute
@@ -106,6 +111,7 @@ class GemOpenTest < Test::Unit::TestCase
     @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
 
     @plugin.expects(:options).returns(:args => [gemname])
+    Dir.expects(:chdir).with("#{@gemdir}/sinatra-sugar-0.4.1").yields
     @plugin.expects(:system).with("mate", "#{@gemdir}/sinatra-sugar-0.4.1")
 
     @plugin.execute
@@ -117,6 +123,7 @@ class GemOpenTest < Test::Unit::TestCase
     @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
 
     @plugin.expects(:options).returns(:args => [gemname])
+    Dir.expects(:chdir).with("#{@gemdir}/imgur2-1.2.0").yields
     @plugin.expects(:system).with("mate", "#{@gemdir}/imgur2-1.2.0")
 
     @plugin.execute
@@ -128,6 +135,7 @@ class GemOpenTest < Test::Unit::TestCase
     @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
 
     @plugin.expects(:options).returns(:args => [gemname])
+    Dir.expects(:chdir).with("#{@gemdir}/imgur2-1.2.0").yields
     @plugin.expects(:system).with("mate", "#{@gemdir}/imgur2-1.2.0")
 
     @plugin.execute
