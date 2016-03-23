@@ -1,8 +1,6 @@
-require "./lib/rubygems/commands/open"
-
 Gem::Specification.new do |s|
   s.name        = "gem-open"
-  s.version     = "0.1.7"
+  s.version     = "0.1.8"
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Nando Vieira"]
   s.email       = ["fnando.vieira@gmail.com"]
