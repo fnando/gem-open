@@ -1,3 +1,5 @@
+require "shellwords"
+
 class Gem::Commands::OpenCommand < Gem::Command
   def description
     "Open a gem into your favorite editor"
@@ -67,7 +69,10 @@ class Gem::Commands::OpenCommand < Gem::Command
     editor = ENV["GEM_EDITOR"] || ENV["EDITOR"]
 
     if editor
-      system *editor.split, spec.full_gem_path
+      path = spec.full_gem_path
+      Dir.chdir(path) do
+        system(*Shellwords.split(editor), path)
+      end
     else
       say "You must set your editor in your .bash_profile or equivalent:"
       say "  export GEM_EDITOR='mate'"
