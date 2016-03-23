@@ -141,6 +141,19 @@ class GemOpenTest < Test::Unit::TestCase
     @plugin.execute
   end
 
+  def test_parse_editor
+    ENV["GEM_EDITOR"] = "mate -H '/Users/My Home/Code and Stuff'"
+    gemname = "imgur2-1.2.0"
+
+    @plugin.expects(:dirs).returns([File.dirname(__FILE__) + "/resources"])
+
+    @plugin.expects(:options).returns(:args => [gemname])
+    Dir.expects(:chdir).with("#{@gemdir}/imgur2-1.2.0").yields
+    @plugin.expects(:system).with("mate", "-H", "/Users/My Home/Code and Stuff", "#{@gemdir}/imgur2-1.2.0")
+
+    @plugin.execute
+  end
+
   def test_unset_editor
     ENV["GEM_EDITOR"] = nil
     ENV["EDITOR"] = nil
