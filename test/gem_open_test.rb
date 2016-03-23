@@ -1,12 +1,13 @@
 require "bundler/setup"
 
-gem "test-unit"
-require "test/unit"
-require "mocha"
+require "minitest"
+require "minitest/utils"
+require "minitest/autorun"
+require "mocha/mini_test"
 require "rubygems_plugin"
-require "FileUtils" unless defined?(FileUtils)
+require "fileutils"
 
-class GemOpenTest < Test::Unit::TestCase
+class GemOpenTest < Minitest::Test
   def setup
     ENV["GEM_EDITOR"] = "mate"
     @plugin = Gem::Commands::OpenCommand.new
