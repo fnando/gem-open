@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Nando Vieira"]
   s.email       = ["fnando.vieira@gmail.com"]
-  s.homepage    = "http://rubygems.org/gems/gem-open"
+  s.homepage    = "http://github.com/fnando/gem-open"
   s.summary     = "Open gems on your favorite editor by running a specific gem command like `gem open nokogiri`."
   s.description = s.summary
 
