@@ -10,6 +10,8 @@ Then add the following lines to your <tt>~/.bash_profile</tt> file.
 
   export GEM_EDITOR="mate"
 
+Or `export GEM_EDITOR="code ."` to open directly your VSCode in a new window.
+
 It will default to <tt>ENV["EDITOR"]</tt>, though.
 
 Finally, run <tt>gem open GEMNAME</tt> to open that gem.
